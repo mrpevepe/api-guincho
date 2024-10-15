@@ -2,6 +2,8 @@ package com.api.guincho.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,14 +22,19 @@ public class Caminhao {
 	@Column(name = "cor", nullable = false, length = 25)
 	private String cor;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status_caminhao", nullable = false, length = 50)
+	private StatusCaminhao status;
+	
 	public Caminhao() {
 	}
 
-	public Caminhao(Long id, String placa, String fabricante, String cor) {
+	public Caminhao(Long id, String placa, String fabricante, String cor, StatusCaminhao status) {
 		this.id = id;
 		this.placa = placa;
 		this.fabricante = fabricante;
 		this.cor = cor;
+		this.status = status;
 	}
 
 	public Long getId() {
@@ -60,6 +67,14 @@ public class Caminhao {
 
 	public void setCor(String cor) {
 		this.cor = cor;
+	}
+
+	public StatusCaminhao getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusCaminhao status) {
+		this.status = status;
 	}
 	
 }

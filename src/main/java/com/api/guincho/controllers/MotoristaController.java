@@ -26,13 +26,6 @@ public class MotoristaController {
     @Autowired
     private MotoristaService motoristaService;
     
-/*    @PostMapping("/chamar/{guinchoId}")
-    public ResponseEntity<Guincho> buscarGuinchoPorId(@PathVariable Long guinchoId) {
-        Guincho guincho = guinchoService.buscarPorId(guinchoId);
-        return ResponseEntity.ok(guincho);
-    }
-*/  
-    
     @GetMapping
     public ResponseEntity<List<Motorista>> listarTodosMotoristas() {
         List<Motorista> motoristas = motoristaService.listarTodosMotoristas();

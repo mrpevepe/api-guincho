@@ -20,7 +20,7 @@ public class Servico {
 	
 	@Column(name = "nome_cliente", nullable = false, length = 50)
 	private String nome;
-	@Column(name = "telefone", nullable = false, length = 14)
+	@Column(name = "telefone", nullable = false, length = 20)
 	private String telefone;
 	@Column(name = "endereco", nullable = false, length = 200)
 	private String endereco;

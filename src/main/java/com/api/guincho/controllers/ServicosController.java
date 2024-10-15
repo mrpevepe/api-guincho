@@ -1,6 +1,7 @@
 package com.api.guincho.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,11 @@ public class ServicosController {
         return ResponseEntity.ok(servicos);
     }
     
+    @GetMapping("/listar-por-id/{id}")
+    public ResponseEntity<Optional<Servico>> listarServicoPorId(@PathVariable Long id) {
+    	Optional<Servico> servicos = servicosService.listarServicoPorId(id);
+    	return ResponseEntity.ok(servicos);
+    }    
     @PostMapping("/novo")
     public ResponseEntity<Servico> criarServico(@RequestBody Servico servico) {
         Servico novoServico = servicosService.criarServico(servico);

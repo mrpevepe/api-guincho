@@ -34,24 +34,6 @@ public class MotoristaService {
         }
         throw new RuntimeException("Guincho não encontrado");
     }
-
-/*    public Motorista chamarMotoristaPorId(Long motoristaId) {
-        Motorista guincho = buscarPorId(motoristaId);
-        if (guincho.getStatus() == StatusMotorista.DISPONIVEL) {
-            guincho.setStatus(StatusMotorista.EM_SERVICO);
-            return guinchoRepository.save(guincho);
-        }
-        throw new RuntimeException("Motorista não está disponível");
-    }
- */
-    
-/*
-    public Guincho liberarGuincho(Long guinchoId) {
-        Guincho guincho = buscarPorId(guinchoId);
-        guincho.setStatus(StatusGuincho.DISPONIVEL);
-        return guinchoRepository.save(guincho);
-    }
-*/
     
     public List<Motorista> listarMotoristasDisponivel() {
     	return guinchoRepository.findByStatus(StatusMotorista.DISPONIVEL);
@@ -66,14 +48,14 @@ public class MotoristaService {
     }   
     
     public Motorista cadastrarMotorista(Motorista motorista, Long idCidade, Long idCaminhao) {
-        // buscar a cidade pelo ID
         Cidade cidade = cidadeRepository.findById(idCidade)
                 .orElseThrow(() -> new RuntimeException("Cidade não encontrada"));
         Caminhao caminhao = caminhaoRepository.findById(idCaminhao)
-        		.orElseThrow(() -> new RuntimeException("Motorista nao encontrado"));
-        // associar a cidade ao motorista
+        		.orElseThrow(() -> new RuntimeException("Caminhão nao encontrado"));
+        
         motorista.setCidade(cidade);
         motorista.setStatus(StatusMotorista.DISPONIVEL);
+        
         motorista.setCaminhao(caminhao);
         return guinchoRepository.save(motorista);
     }
@@ -82,13 +64,14 @@ public class MotoristaService {
     public Motorista editarMotorista(Long id, Motorista motoristaAtualizado, Long idCidade) {
     	Optional<Motorista> motoristaExistente = guinchoRepository.findById(id);
     	if (motoristaExistente.isPresent()) {
+    		
     		Motorista motorista = motoristaExistente.get();
     		motorista.setNomeMotorista(motoristaAtualizado.getNomeMotorista());
-    		// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    		
             Cidade cidade = cidadeRepository.findById(idCidade)
                     .orElseThrow(() -> new RuntimeException("Cidade não encontrada"));
     		motorista.setCidade(cidade);
-    		//guincho.setStatus(guinchoAtualizado.getStatus());
+    		
     		return guinchoRepository.save(motorista);
     	} else {
     		throw new EntityNotFoundException("Motorista nao encontrado.");
